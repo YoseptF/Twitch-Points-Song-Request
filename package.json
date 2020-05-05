@@ -1,0 +1,32 @@
+{
+  "name": "Twitch-Points-Song-Request",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently npm:watch-*",
+    "watch-webpack": "webpack --mode=development --watch",
+    "watch-hugo": "wait-on ./assets/js/bundle.js && hugo server",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YoseptF/Twitch-Points-Song-Request.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YoseptF/Twitch-Points-Song-Request/issues"
+  },
+  "homepage": "https://github.com/YoseptF/Twitch-Points-Song-Request#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
+    "concurrently": "^5.2.0",
+    "wait-on": "^5.0.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

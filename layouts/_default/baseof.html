@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  {{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+  {{ $script := resources.Get "js/bundle.js" | minify | fingerprint }}
+  <script src="{{ $script.Permalink }}"></script>
+  <title>
+    {{ block "title" . }}
+    {{ .Site.Title }}
+    {{ end }}
+  </title>
+</head>
+
+<body>
+  <!-- Code that all your templates share, like a header -->
+  <main>
+    {{ block "main" . }}
+    <!-- The part of the page that begins to differ between templates -->
+    {{ end }}
+  </main>
+</body>
+
+</html>

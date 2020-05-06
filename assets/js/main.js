@@ -7,7 +7,7 @@ window.onload = () => {
 
   Twitch.login()
 
-  $('body').style.background = 'red';
+  $('body').style.background = 'blue';
 
   // $('#sidebarCollapse').on('click', function () {
   //   $('#sidebar').classList.toggle('active');

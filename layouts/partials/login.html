@@ -1,4 +1,4 @@
-<div class="login">
+<div class="login bg-primary">
   <div class="row navi m-3 align-items-center">
     <div class="col-3 d-flex align-items-center justify-content-end">
       <img src="via.placeholder.com/25" alt="">
@@ -8,7 +8,7 @@
       <i class="fab fa-discord fa-2x text-light mx-2"></i>
       <i class="fab fa-youtube fa-2x text-light mx-2"></i>
       <i class="fab fa-twitter fa-2x text-light mx-2"></i>
-      |&nbsp&nbsp<%= link_to 'Terms of use', '#' %>
+      |&nbsp&nbsp <a href="javascript:void(0)">Terms of use</a>
     </div>
   </div>
   <div class="container-fluid">
@@ -23,9 +23,9 @@
         <h2>Auto greets viewers, dances to !song, and many more fun interactions with custom commands!</h2>
       </div>
       <div class="col-7 mx-auto d-flex justify-content-center">
-        <%= link_to login_path, class: 'btn p-3' do %>
-        <i class="fab fa-twitch"></i><span>  Twitch Sign In</span>
-        <% end %>
+        <a class='btn btn-success p-3 loginButton' href="javascript:void(0)">
+          <i class="fab fa-twitch"></i><span>  Twitch Sign In</span>
+        </a>
       </div>
     </div>
   </div>

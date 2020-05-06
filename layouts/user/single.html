@@ -14,8 +14,8 @@
 </head>
 
 <body>
-  {{ block "main" . }}
-  {{ end }}
+  {{ .Content }}
+
   {{ $script := resources.Get "js/bundle.js" | minify | fingerprint }}
   <script src="{{ $script.Permalink }}"></script>
 </body>

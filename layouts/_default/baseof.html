@@ -6,8 +6,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   {{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $style.Permalink }}">
-  {{ $script := resources.Get "js/bundle.js" | minify | fingerprint }}
-  <script src="{{ $script.Permalink }}"></script>
   <title>
     {{ block "title" . }}
     {{ .Site.Title }}
@@ -18,10 +16,15 @@
 <body>
   {{ partial "shared/nav.html" . }}
   <main>
-    {{ block "main" . }}
-    <!-- The part of the page that begins to differ between templates -->
-    {{ end }}
+    <div class="wrapper d-flex">
+      {{ partial "shared/sidebar.html" . }}
+      {{ block "main" . }}
+      {{ end }}
+    </div>
   </main>
+
+  {{ $script := resources.Get "js/bundle.js" | minify | fingerprint }}
+  <script src="{{ $script.Permalink }}"></script>
 </body>
 
 </html>

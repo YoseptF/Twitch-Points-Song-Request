@@ -32,6 +32,8 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "bootstrap": "^4.4.1"
+    "bootstrap": "^4.4.1",
+    "dotenv-webpack": "^1.7.0",
+    "firebase": "^7.14.2"
   }
 }

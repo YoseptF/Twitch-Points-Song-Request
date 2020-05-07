@@ -3,6 +3,7 @@ import Firebase from "./Firebase"
 const setDOMInterface = user => {
   $('.userImg').src = user.profile_image_url
   $('.userDisplayName').innerHTML = user.display_name
+  $('.userGreeting').innerHTML = `Hello, ${user.display_name}!`
 }
 
 const hideDOMSongEvent = () => {
@@ -19,22 +20,56 @@ const songEventButtonListener = () => {
   })
 }
 
+const setIframeListener = () => {
+  var tag = document.createElement('script');
+  tag.id = 'iframe-demo';
+  tag.src = 'https://www.youtube.com/iframe_api';
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player('player', {
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+  function onPlayerStateChange(event) {
+    if (event.data == 0) {
+      let now = Firebase.songList[0]
+      let next = Firebase.songList[1]
+
+      if (next){
+        player.loadVideoById(next)
+      }
+      else {
+        DOMToggleEmptySongs()
+      }
+      Firebase.removeSong(now)
+    };
+  }
+  function onPlayerReady(event) {
+    console.log('ready');
+  }
+}
+
 const setDOMCurrentSong = (song) => {
-  $('.videPlayer').src = `https://www.youtube.com/embed/${song}`
-  $('.videPlayer').addEventListener("onStateChange", function (state) {
-    if (state === 0) {
-      console.log('finish');
-    }
-  });
+  const player = $('.player')
+
+  player.src = `https://www.youtube.com/embed/${song}?enablejsapi=1`
+  DOMToggleEmptySongs()
+  setIframeListener();
+}
+
+const DOMToggleEmptySongs = () => {
+  const emptyDataSong = $('#player')
+  emptyDataSong.dataset.empty = emptyDataSong.dataset.empty == 'true' ? 'false' : 'true';
 }
 
 const setDOMSongsTable = async (songList) => {
-
-  console.log('src: ', $('.videPlayer').src == '');
-
-  if ($('.videPlayer').src == '') {
-    setDOMCurrentSong(songList[0])
-  }
+  if ($('.player').dataset.empty == 'true') setDOMCurrentSong(songList[0])
 
   const pendingSongs = $('.pendingSongs');
 
@@ -65,8 +100,8 @@ const setDOMSongsTable = async (songList) => {
 const setDOMAddSongButton = () => {
   $('.addNewSongButton').on('click', (event) => {
     event.preventDefault()
-    if(event.target.previousElementSibling.value != '')
-    Firebase.addSong(event.target.previousElementSibling.value)
+    if (event.target.previousElementSibling.value != '')
+      Firebase.addSong(event.target.previousElementSibling.value)
   })
 }
 

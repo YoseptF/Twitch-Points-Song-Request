@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  {{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+  <title>
+    {{ block "title" . }}
+    {{ .Site.Title }}
+    {{ end }}
+  </title>
+</head>
+
+<body>
+  <style>
+    body{
+      height: 100vh;
+      width: 100vw;
+      background: blue;
+    }
+  </style>
+  <div class="row h-100 w-100 d-flex justify-content-center align-items-center">
+    <h1 class="text-light font-weight-bold">No Songs Selected</h1>
+  </div>
+</body>
+
+</html>

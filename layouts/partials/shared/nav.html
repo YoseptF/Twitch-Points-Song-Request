@@ -1,5 +1,9 @@
 <nav class="navbar bg-primary navbar-light bg-light justify-content-between">
-  <a href="/" class="navbar-brand">Song Request</a>
+  <div class="left">
+    {{ $image := resources.Get "images/logo.svg" }}
+    <img class="logoImg" src="{{ $image.Permalink }}" alt="">
+    <h2 class="font-weight-bold m-0">CPS</h2>
+  </div>
   <div class="right d-flex">
     <form class="form-inline">
       <input class="form-control mr-sm-2" type="search" placeholder="Link to Youtube" aria-label="Search">

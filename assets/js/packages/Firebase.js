@@ -50,7 +50,7 @@ const Firebase = (() => {
         songList = doc.data().songs
         songEvent = doc.data().songEvent
 
-        if(songList.length > 0){
+        if (songList.length > 0) {
           setDOMSongsTable(songList)
         }
 
@@ -65,6 +65,19 @@ const Firebase = (() => {
   }
 
   const addSong = (song) => {
+
+    let check = song.match(/watch\?v=([^&]*)|\.be\/([^&]*)/)
+    if (check) {
+      if (check[1]){
+        console.log(check[1])
+        song = check[1]
+      };
+      if (check[2]){
+        console.log(check[2])
+        song = check[2]
+      };
+    }
+    
     fireObject = fireObject || db.collection("songLists").doc(songid);
 
     fireObject.update({
@@ -93,7 +106,8 @@ const Firebase = (() => {
       fireObject.doc(songid).update({
         songEvent: event
       });
-    }
+    },
+    get songList() { return songList }
   }
 })()
 

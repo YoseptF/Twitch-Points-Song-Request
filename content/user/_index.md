@@ -7,7 +7,13 @@ draft: false
 {{< raw >}}
 
 <div class="videoWrapper bg-dark">
-<iframe class='videPlayer' width="100%" height="450" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe class="player" id="player"
+        data-empty=true
+        width="100%" height="450"
+        src = "/songs/empty/"
+        frameborder="0"
+        style="border: solid 4px #37474F"
+></iframe>
 </div>
 
 <table class="table table-dark">

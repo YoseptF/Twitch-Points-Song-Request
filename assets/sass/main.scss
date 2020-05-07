@@ -32,7 +32,16 @@ a, a:hover, a:focus {
   z-index: 1000;
 }
 
+.logoImg{
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
 nav{
+  .left{
+    display: flex;
+    align-items: center;
+  }
   .userInfo{
     margin-left: 1rem;
     border-left: 1px solid black;

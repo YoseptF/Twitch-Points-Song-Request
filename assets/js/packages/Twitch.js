@@ -6,9 +6,9 @@ const Twitch = (() => {
 
   let user;
 
-  const clientId = 'tj3x0b3h6ymne5khblzqpdk2egxigz';
-  const redirectUrl = 'http://localhost:1314/user/';
-  const scopes = 'user:read:email';
+  const clientId = process.env.TWITCH_CLIENT_ID;
+  const redirectUrl = process.env.TWITCH_REDIRECT_URL;
+  const scopes = process.env.TWITCH_SCOPES;
 
   const url = `https://id.twitch.tv/oauth2/authorize` +
     `?client_id=${clientId}` +

@@ -15,12 +15,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
-    ],
-    rules: [
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
       {
         test: /\.s[ac]ss$/i,
         use: [
@@ -32,11 +30,11 @@ module.exports = {
           'sass-loader',
         ],
       },
-    ]
+    ],
   },
   plugins: [
     new Dotenv({
       systemvars: true,
     }),
-  ]
+  ],
 };

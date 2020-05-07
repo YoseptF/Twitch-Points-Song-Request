@@ -1,83 +1,88 @@
-import Firebase from "./Firebase"
+import { $, $$, Bling } from './bling'; // eslint-disable-line no-unused-vars
 
-const setDOMInterface = user => {
-  $('.userImg').src = user.profile_image_url
-  $('.userDisplayName').innerHTML = user.display_name
-  $('.userGreeting').innerHTML = `Hello, ${user.display_name}!`
-}
+/* eslint-disable no-await-in-loop */
+import Firebase from './Firebase';
+import 'regenerator-runtime';
+
+const setDOMInterface = (user) => {
+  $('.userImg').src = user.profile_image_url;
+  $('.userDisplayName').innerHTML = user.display_name;
+  $('.userGreeting').innerHTML = `Hello, ${user.display_name}!`;
+};
 
 const hideDOMSongEvent = () => {
-  $('.songEventSetter').style.display = 'none'
-}
+  $('.songEventSetter').style.display = 'none';
+};
 
 const setDOMSongEvent = (event) => {
-  $('#reward-id').value = event
-}
+  $('#reward-id').value = event;
+};
 
 const songEventButtonListener = () => {
   $('.setEventButton').on('click', () => {
-    Firebase.songEvent = $('#reward-id').value
-  })
-}
-
-const setIframeListener = () => {
-  var tag = document.createElement('script');
-  tag.id = 'iframe-demo';
-  tag.src = 'https://www.youtube.com/iframe_api';
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-  var player;
-  window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('player', {
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }
-  function onPlayerStateChange(event) {
-    if (event.data == 0) {
-      let now = Firebase.songList[0]
-      let next = Firebase.songList[1]
-
-      if (next){
-        player.loadVideoById(next)
-      }
-      else {
-        DOMToggleEmptySongs()
-      }
-      Firebase.removeSong(now)
-    };
-  }
-  function onPlayerReady(event) {
-    console.log('ready');
-  }
-}
-
-const setDOMCurrentSong = (song) => {
-  const player = $('.player')
-
-  player.src = `https://www.youtube.com/embed/${song}?enablejsapi=1`
-  DOMToggleEmptySongs()
-  setIframeListener();
-}
+    Firebase.songEvent = $('#reward-id').value;
+  });
+};
 
 const DOMToggleEmptySongs = () => {
-  const emptyDataSong = $('#player')
-  emptyDataSong.dataset.empty = emptyDataSong.dataset.empty == 'true' ? 'false' : 'true';
-}
+  const emptyDataSong = $('#player');
+  emptyDataSong.dataset.empty = emptyDataSong.dataset.empty === 'true' ? 'false' : 'true';
+};
+
+const setIframeListener = () => {
+  const tag = document.createElement('script');
+  tag.id = 'iframe-demo';
+  tag.src = 'https://www.youtube.com/iframe_api';
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  let player;
+
+  function onPlayerStateChange(event) {
+    if (event.data === 0) {
+      const now = Firebase.songList[0];
+      const next = Firebase.songList[1];
+
+      if (next) {
+        player.loadVideoById(next);
+      } else {
+        DOMToggleEmptySongs();
+      }
+      Firebase.removeSong(now);
+    }
+  }
+  function onPlayerReady() {
+    // console.log('ready');
+  }
+
+  window.onYouTubeIframeAPIReady = function on() {
+    player = new YT.Player('player', { // eslint-disable-line no-undef
+      events: {
+        onReady: onPlayerReady,
+        onStateChange: onPlayerStateChange,
+      },
+    });
+  };
+};
+
+const setDOMCurrentSong = (song) => {
+  const player = $('.player');
+
+  player.src = `https://www.youtube.com/embed/${song}?enablejsapi=1`;
+  DOMToggleEmptySongs();
+  setIframeListener();
+};
 
 const setDOMSongsTable = async (songList) => {
-  if ($('.player').dataset.empty == 'true') setDOMCurrentSong(songList[0])
+  if ($('.player').dataset.empty === 'true') setDOMCurrentSong(songList[0]);
 
   const pendingSongs = $('.pendingSongs');
 
-  pendingSongs.innerHTML = ''
+  pendingSongs.innerHTML = '';
 
-  for (let i = 1; i < songList.length; i++) {
-    let response = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${songList[i]}`)
-    let json = await response.json()
+  for (let i = 1; i < songList.length; i += 1) {
+    const response = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${songList[i]}`);
+    const json = await response.json();
 
     pendingSongs.innerHTML += `
     <tr>
@@ -86,24 +91,22 @@ const setDOMSongsTable = async (songList) => {
     <td><a href="${json.url}" target='_blank'>${json.url}</a></td>
     <td><button class="btn btn-block btn-danger deleteSongButton" data-id="${songList[i]}">Delete</button></td>
     </tr>
-    `
+    `;
   }
 
-  $$('.deleteSongButton').forEach(button => {
+  $$('.deleteSongButton').forEach((button) => {
     button.on('click', () => {
-      console.log('button: ', button.dataset.id);
-      Firebase.removeSong(button.dataset.id)
-    })
-  })
-}
+      Firebase.removeSong(button.dataset.id);
+    });
+  });
+};
 
 const setDOMAddSongButton = () => {
   $('.addNewSongButton').on('click', (event) => {
-    event.preventDefault()
-    if (event.target.previousElementSibling.value != '')
-      Firebase.addSong(event.target.previousElementSibling.value)
-  })
-}
+    event.preventDefault();
+    if (event.target.previousElementSibling.value !== '') Firebase.addSong(event.target.previousElementSibling.value);
+  });
+};
 
 export {
   setDOMInterface,
@@ -112,5 +115,5 @@ export {
   songEventButtonListener,
   setDOMCurrentSong,
   setDOMSongsTable,
-  setDOMAddSongButton
-}
+  setDOMAddSongButton,
+};

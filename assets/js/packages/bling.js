@@ -1,14 +1,22 @@
-window.$ = document.querySelector.bind(document);
-window.$$ = document.querySelectorAll.bind(document);
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
 
-Node.prototype.on = window.on = function (name, fn) {
-  this.addEventListener(name, fn)
-};
+const Bling = (() => {
+  window.on = function on(name, fn) {
+    this.addEventListener(name, fn);
+  };
 
-NodeList.prototype.__proto__ = Array.prototype;
+  Node.prototype.on = window.on;
 
-NodeList.prototype.on = function (name, fn) {
-  this.forEach(function (elem, i) {
-    elem.on(name, fn)
-  });
-};
+  Object.setPrototypeOf(NodeList, Array.prototype);
+
+  NodeList.prototype.on = function on(name, fn) {
+    // eslint-disable-next-line no-unused-vars
+    this.forEach((elem, _i) => {
+      elem.on(name, fn);
+    });
+  };
+})();
+
+
+export { $, $$, Bling };

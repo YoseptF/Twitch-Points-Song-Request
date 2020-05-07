@@ -21,7 +21,7 @@ command = "yarn run build && hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_U
 HUGO_VERSION = "0.69.2"
 
 [context.branch-deploy]
-TWITCH_REDIRECT_URL = $DEPLOY_PRIME_URL/user/
+TWITCH_REDIRECT_URL = "$DEPLOY_PRIME_URL /user/"
 command = "yarn run build && hugo --gc --minify -b $DEPLOY_PRIME_URL"
 
 [context.branch-deploy.environment]

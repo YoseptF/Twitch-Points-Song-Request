@@ -14,10 +14,16 @@
 </head>
 
 <body>
-  {{ block "main" . }}
-  {{ end }}
-  {{ $script := resources.Get "js/bundle.js" | minify | fingerprint }}
-  <script src="{{ $script.Permalink }}"></script>
+  <style>
+    body{
+      height: 100vh;
+      width: 100vw;
+      background: blue;
+    }
+  </style>
+  <div class="row h-100 w-100 d-flex justify-content-center align-items-center">
+    <h1 class="text-light font-weight-bold">No Songs Selected</h1>
+  </div>
 </body>
 
 </html>

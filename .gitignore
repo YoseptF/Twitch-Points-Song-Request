@@ -1,3 +1,7 @@
 node_modules
 assets/js/bundle.js
 resources
+.env
+public
+# Local Netlify folder
+.netlify

@@ -1,5 +1,55 @@
-*{
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "./sidebar.scss";
+
+* {
   border: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.wrapper{
+  height: calc(100vh - 56px);
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
+}
+
+a, a:hover, a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.login{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+}
+
+.logoImg{
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+nav{
+  .left{
+    display: flex;
+    align-items: center;
+  }
+  .userInfo{
+    margin-left: 1rem;
+    border-left: 1px solid black;
+    .userImg{
+      cursor: pointer;
+      border-radius: 100%;
+      height: 40px;
+      margin-left: 1rem;
+    }
+  }
 }

@@ -2,6 +2,10 @@
 publish = "public"
 command = "yarn run build && hugo --gc --minify"
 
+[dev]
+command = "yarn start"
+autoLaunch = true
+
 [context.production.environment]
 HUGO_VERSION = "0.69.2"
 HUGO_ENV = "production"

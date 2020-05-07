@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  {{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}">
+  <title>
+    {{ block "title" . }}
+    {{ .Site.Title }}
+    {{ end }}
+  </title>
+</head>
+
+<body>
+  {{ partial "shared/nav.html" . }}
+  <main>
+    <div class="wrapper d-flex">
+      {{ partial "shared/sidebar.html" . }}
+      <div class="container-fluid songList">
+        <div class="row align-items-center justify-content-center songEventSetter">
+
+          <h5 class="text-light">Your song event hasn't been set</h5>
+          <div class="input-group m-3 col-4">
+            <div class="input-group-prepend">
+              <button class="btn input-group-text setEventButton">Set song listener</button>
+            </div>
+            <input placeholder="Custom event id" type="text" class="form-control" id="reward-id"
+              aria-describedby="basic-addon3">
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Send a new song on your channel's chat and the event will automatically get here
+            </small>
+          </div>
+        </div>
+        {{ .Content }}
+      </div>
+    </div>
+  </main>
+
+  {{ $script := resources.Get "js/bundle.js" | minify | fingerprint }}
+  <script src="{{ $script.Permalink }}"></script>
+</body>
+
+</html>

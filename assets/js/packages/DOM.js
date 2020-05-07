@@ -21,6 +21,9 @@ const setDOMSongEvent = (event) => {
 const songEventButtonListener = () => {
   $('.setEventButton').on('click', () => {
     Firebase.songEvent = $('#reward-id').value;
+    setTimeout(() => {
+      window.location.reload(false);
+    }, 1000);
   });
 };
 

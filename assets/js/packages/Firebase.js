@@ -6,7 +6,7 @@ const Firebase = (() => {
   let db;
   let fireObject;
   let songEvent;
-  let songList;
+  let songs;
   let songid;
 
   const initialize = () => {
@@ -46,11 +46,12 @@ const Firebase = (() => {
 
     db.collection('songLists').doc(id)
       .onSnapshot((doc) => {
-        songList = doc.data().songs;
+        ({ songs } = doc.data());
         ({ songEvent } = doc.data());
 
-        if (songList.length > 0) {
-          setDOMSongsTable(songList);
+
+        if (songs.length > 0) {
+          setDOMSongsTable(songs);
         }
 
         if (songEvent !== '') {
@@ -99,7 +100,7 @@ const Firebase = (() => {
         songEvent: event,
       });
     },
-    get songList() { return songList; },
+    get songList() { return songs; },
   };
 })();
 

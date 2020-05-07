@@ -43,7 +43,8 @@ const Twitch = (() => {
 
     songEventButtonListener();
 
-    client.on('message', (tags, message) => {
+    // eslint-disable-next-line no-unused-vars
+    client.on('message', (_channel, tags, message, _self) => {
       if (tags['custom-reward-id'] && tags['custom-reward-id'] !== Firebase.songEvent && tags.badges && tags.badges.broadcaster === '1') {
         setDOMSongEvent(tags['custom-reward-id']);
       }

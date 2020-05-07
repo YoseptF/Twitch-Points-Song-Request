@@ -5,5 +5,21 @@ draft: false
 ---
 
 {{< raw >}}
-<p class="text-light">dog</p>
+
+<div class="videoWrapper bg-dark">
+<iframe class='videPlayer' width="100%" height="450" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Link</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody class="pendingSongs">
+  </tbody>
+</table>
 {{< /raw >}}

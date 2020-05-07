@@ -1,12 +1,13 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore'
-import { setDOMSongEvent } from './DOM'
+import { hideDOMSongEvent, setDOMCurrentSong, setDOMSongsTable } from './DOM'
 
 const Firebase = (() => {
   let db;
   let fireObject;
   let songEvent;
   let songList;
+  let songid;
 
   const initialize = () => {
     let firebaseConfig = {
@@ -19,49 +20,72 @@ const Firebase = (() => {
       appId: process.env.FIREBASE_APP_ID,
       measurementId: process.env.FIREBASE_MEASUREMENT_ID
     };
-  
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-  
+
     db = firebase.firestore();
-  
-    console.log('firebases: ', db);
+
   }
 
   const getSongList = (id) => {
+    songid = id
     fireObject = db.collection("songLists").doc(id);
 
-    fireObject.get().then(function(doc) {
+    fireObject.get().then(function (doc) {
       if (!doc.exists) {
-          console.log("New user!");
-          fireObject = db.collection("songLists");
-          
-          fireObject.doc(id).set({
-            songEvent: '',
-            songs: []
-          });
-      }
-  }).catch(function(error) {
-      console.log("Error getting document:", error);
-  });
+        fireObject = db.collection("songLists");
 
-  db.collection("songLists").doc(id)
-    .onSnapshot(function(doc) {
+        fireObject.doc(id).set({
+          songEvent: '',
+          songs: []
+        });
+      }
+    }).catch(function (error) {
+      // console.log("Error getting document:", error);
+    });
+
+    db.collection("songLists").doc(id)
+      .onSnapshot(function (doc) {
         songList = doc.data().songs
         songEvent = doc.data().songEvent
-        console.log("Current data: ", songList);
-        console.log("Current data: ", songEvent);
 
-        if(songEvent != ''){
-          setDOMSongEvent(songEvent)
+        if(songList.length > 0){
+          setDOMSongsTable(songList)
         }
-    });
+
+        console.log("Current songList: ", songList);
+        console.log("Current songEvent: ", songEvent);
+
+        if (songEvent != '') {
+          hideDOMSongEvent()
+        }
+      });
 
   }
 
-  // const citiesRef = db.collection("cities");
+  const addSong = (song) => {
+    fireObject = fireObject || db.collection("songLists").doc(songid);
 
-  return { initialize, getSongList }
+    fireObject.update({
+      songs: firebase.firestore.FieldValue.arrayUnion(song)
+    });
+  }
+
+  return {
+    initialize,
+    getSongList,
+    addSong,
+    get songEvent() { return songEvent },
+    set songEvent(event) {
+      songEvent = event;
+
+      fireObject = db.collection("songLists");
+      fireObject.doc(songid).update({
+        songEvent: event
+      });
+    }
+  }
 })()
 
 export default Firebase

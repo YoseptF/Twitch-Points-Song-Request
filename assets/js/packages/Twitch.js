@@ -1,6 +1,6 @@
 import tmi from 'tmi.js';
 import Firebase from './Firebase';
-import { setDOMInterface } from './DOM';
+import { setDOMInterface, setDOMSongEvent, songEventButtonListener } from './DOM';
 
 const Twitch = (() => {
 
@@ -20,9 +20,8 @@ const Twitch = (() => {
 
   const loginListener = () => {
     const logginButton = $('.loginButton')
-    
+
     if (logginButton) {
-      console.log('url: ', url);
       logginButton.on('click', () => {
         window.location = url
       })
@@ -38,15 +37,19 @@ const Twitch = (() => {
       channels: [user.display_name]
     });
 
-    console.log(client);
-
     client.connect();
 
+    songEventButtonListener()
+
     client.on('message', (channel, tags, message, self) => {
-      // "Alca: Hello, World!"
-      console.log(`${tags['display-name']}: ${message}`);
-      console.log(`tags: ${JSON.stringify(tags)}`);
-      console.log(`self: ${self}`);
+      console.log('tags', tags)
+      if (tags['custom-reward-id'] && tags['custom-reward-id'] != Firebase.songEvent && tags['badges'] && tags['badges']['broadcaster'] == '1') {
+        setDOMSongEvent(tags['custom-reward-id'])
+      }
+      if (tags['custom-reward-id'] && tags['custom-reward-id'] == Firebase.songEvent) {
+        console.log(`${tags['display-name']}: ${message}`);
+        Firebase.addSong(message)
+      }
     });
   }
 
@@ -57,10 +60,7 @@ const Twitch = (() => {
       const url_token = window.location.href.match(/token=([^&]*)&/)
       if (!url_token) window.location.href = '/'
       const token = url_token[1]
-      console.log('token: ', token);
       user = JSON.parse(localStorage.getItem('user'))
-
-      console.log('user', user);
 
       const response = await fetch("https://api.twitch.tv/helix/users", {
         headers: {
@@ -70,14 +70,12 @@ const Twitch = (() => {
       })
 
       const json = await response.json();
-      console.log(json);
 
       user = json.data[0]
       localStorage.setItem('user', JSON.stringify(user))
       Firebase.initialize()
       Firebase.getSongList(user.id)
 
-      console.log('after: ', user);
       setDOMInterface(user)
       chatListener()
     }

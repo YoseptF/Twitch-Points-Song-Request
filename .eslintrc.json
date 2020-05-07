@@ -14,7 +14,7 @@
     "no-param-reassign": "off",
     "eol-last": "off",
     "arrow-parens": "off",
-    // "no-undef": "off",
+    "import/no-unresolved": "off",
     "prefer-destructuring": ["error", {"object": true, "array": false}],
     "import/no-cycle": "off"
   }

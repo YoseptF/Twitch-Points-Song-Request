@@ -1,4 +1,4 @@
-import tmi from 'tmi.js';
+import tmi from 'tmi.js'; // eslint-disable-line import/extensions
 import Firebase from './Firebase';
 import {
   setDOMInterface, setDOMSongEvent, songEventButtonListener, setDOMAddSongButton,

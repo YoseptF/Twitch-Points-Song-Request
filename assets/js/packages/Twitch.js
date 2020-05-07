@@ -1,6 +1,6 @@
 import tmi from 'tmi.js';
 import Firebase from './Firebase';
-import { setDOMInterface, setDOMSongEvent, songEventButtonListener } from './DOM';
+import { setDOMInterface, setDOMSongEvent, songEventButtonListener, setDOMAddSongButton } from './DOM';
 
 const Twitch = (() => {
 
@@ -55,6 +55,8 @@ const Twitch = (() => {
 
   const currentUserListener = async () => {
     const songList = $('.songList')
+
+    setDOMAddSongButton()
 
     if (songList) {
       const url_token = window.location.href.match(/token=([^&]*)&/)

@@ -21,11 +21,11 @@ const songEventButtonListener = () => {
 
 const setDOMCurrentSong = (song) => {
   $('.videPlayer').src = `https://www.youtube.com/embed/${song}`
-  $('.videPlayer').addEventListener("onStateChange", function(state){
-    if(state === 0){
-        console.log('finish');
+  $('.videPlayer').addEventListener("onStateChange", function (state) {
+    if (state === 0) {
+      console.log('finish');
     }
-});
+  });
 }
 
 const setDOMSongsTable = async (songList) => {
@@ -48,11 +48,34 @@ const setDOMSongsTable = async (songList) => {
     <tr>
     <th scope="row">${i}</th>
     <td>${json.title}</td>
-    <td><a href="${json.url}" >${json.url}</a></td>
-    <td><button class="btn btn-block btn-danger">Delete</button></td>
+    <td><a href="${json.url}" target='_blank'>${json.url}</a></td>
+    <td><button class="btn btn-block btn-danger deleteSongButton" data-id="${songList[i]}">Delete</button></td>
     </tr>
     `
   }
+
+  $$('.deleteSongButton').forEach(button => {
+    button.on('click', () => {
+      console.log('button: ', button.dataset.id);
+      Firebase.removeSong(button.dataset.id)
+    })
+  })
 }
 
-export { setDOMInterface, hideDOMSongEvent, setDOMSongEvent, songEventButtonListener, setDOMCurrentSong, setDOMSongsTable }
+const setDOMAddSongButton = () => {
+  $('.addNewSongButton').on('click', (event) => {
+    event.preventDefault()
+    if(event.target.previousElementSibling.value != '')
+    Firebase.addSong(event.target.previousElementSibling.value)
+  })
+}
+
+export {
+  setDOMInterface,
+  hideDOMSongEvent,
+  setDOMSongEvent,
+  songEventButtonListener,
+  setDOMCurrentSong,
+  setDOMSongsTable,
+  setDOMAddSongButton
+}

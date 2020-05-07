@@ -72,10 +72,19 @@ const Firebase = (() => {
     });
   }
 
+  const removeSong = (song) => {
+    fireObject = fireObject || db.collection("songLists").doc(songid);
+
+    fireObject.update({
+      songs: firebase.firestore.FieldValue.arrayRemove(song)
+    });
+  }
+
   return {
     initialize,
     getSongList,
     addSong,
+    removeSong,
     get songEvent() { return songEvent },
     set songEvent(event) {
       songEvent = event;

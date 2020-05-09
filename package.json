@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "crypto-js": "^4.0.0",
     "dotenv-webpack": "^1.7.0",
     "firebase": "^7.14.2",
     "netlify-lambda": "^1.6.3",

@@ -1,6 +1,7 @@
 [build]
 publish = "public"
 command = "yarn run build && hugo --gc --minify"
+functions = "functions/"
 
 [dev]
 command = "yarn start"

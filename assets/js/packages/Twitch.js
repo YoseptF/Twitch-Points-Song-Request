@@ -7,6 +7,7 @@ import { $, Bling } from './bling'; // eslint-disable-line no-unused-vars
 
 const Twitch = (() => {
   let user;
+  let folder;
 
   const clientId = process.env.TWITCH_CLIENT_ID;
   const redirectUrl = process.env.TWITCH_REDIRECT_URL;
@@ -63,21 +64,17 @@ const Twitch = (() => {
       const urlToken = window.location.href.match(/token=([^&]*)&/);
       if (!urlToken) window.location.href = '/';
       const token = urlToken[1];
-      user = JSON.parse(localStorage.getItem('user'));
 
-      const response = await fetch('https://api.twitch.tv/helix/users', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Client-ID': clientId,
-        },
-      });
+      const response = await fetch(`/.netlify/functions/getSongsFolder?token=${token}&clientId=${clientId}`);
 
       const json = await response.json();
 
-      user = json.data[0];
+      ({ user } = json);
+      ({ folder } = json);
+
       localStorage.setItem('user', JSON.stringify(user));
       Firebase.initialize();
-      Firebase.getSongList(user.id);
+      Firebase.getSongList(folder);
 
       setDOMInterface(user);
       chatListener();

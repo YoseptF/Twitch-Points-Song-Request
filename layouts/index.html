@@ -3,7 +3,7 @@
   <div class="row navi m-3 align-items-center">
     <div class="col-3 d-flex align-items-center justify-content-end">
       {{ $image := resources.Get "images/logo.svg" }}
-      <img class="logoImg" src="{{ $image.Permalink }}" alt="">
+      <img class="logoImg" src="{{ $image.RelPermalink }}" alt="">
       <h1 class="ml-3 mb-0 text-light">Jashimon</h1>
     </div>
     <div class="ml-auto col-2 d-flex justify-content-end">

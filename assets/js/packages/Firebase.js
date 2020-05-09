@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/auth';
 import { hideDOMSongEvent, setDOMSongsTable } from './DOM';
 
 const Firebase = (() => {
@@ -23,6 +24,12 @@ const Firebase = (() => {
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+      console.log('user: ', user);
+    });
+
+    firebase.auth().signInAnonymously();
 
     db = firebase.firestore();
   };

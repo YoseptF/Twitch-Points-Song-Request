@@ -2,10 +2,6 @@ import { $, $$, Bling } from './packages/bling'; // eslint-disable-line no-unuse
 import Twitch from './packages/Twitch';
 import 'firebase/firestore';
 
-// if(window.location.href == window.location.origin)
-// console.log('dogo');
-// if (localStorage.getItem('user')) window.location = '/user/'
-
 window.onload = () => {
   if (window.location.href === `${window.location.origin}/`) {
     Twitch.loginListener();

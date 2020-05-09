@@ -26,7 +26,7 @@ const Firebase = (() => {
     firebase.initializeApp(firebaseConfig);
 
     firebase.auth().onAuthStateChanged(user => {
-      console.log('user: ', user);
+      console.log('user: ', user); // eslint-disable-line no-console
     });
 
     firebase.auth().signInAnonymously();

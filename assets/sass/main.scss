@@ -1,6 +1,25 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "./sidebar.scss";
 
+.list-group-item {
+  .list-group { width: 100%;}
+  .list-group-item{ border: none;}
+  color: white;
+  background: $primary;
+  border: 2px solid $light;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  img {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+}
+
+body{
+  overflow-x: hidden;
+}
+
 * {
   border: 0;
   padding: 0;

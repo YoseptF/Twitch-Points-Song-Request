@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body class="bg-primary">
+    {{ .Content }}
+    <nav class="nav w-100 mx-3 p-3 mt-0" >
+      <a href="/" class="ml-auto mr-3 pr-3 font-weight-bold text-light">| <u>Home</u></a>
+    </nav>
+    <div class="container bg-primary mt-0">
+      <div class="row justify-content-center bg-primary">
+        <ul class="list-group bg-primary">
+          <li class="list-group-item">
+            1.- Log in
+            <ul class="list-group">
+              <li class="list-group-item"><img src="https://i.imgur.com/eZdcQGG.png" alt="login"></li>
+            </ul>
+          </li>
+          <li class="list-group-item">
+            2.- Authorize the app
+            <ul class="list-group">
+              <li class="list-group-item"><img src="https://i.imgur.com/JjiWZQV.png" alt="login"></li>
+            </ul>
+          </li>
+          <li class="list-group-item">
+            3.- Set a reward in your channel
+            <ul class="list-group">
+              <li class="list-group-item"><img src="https://i.imgur.com/dpKYBhA.png" alt="login"></li>
+            </ul>
+          </li>
+          <li class="list-group-item">
+            4.- Buy your own reward <strong>AS THE OWNER OF THE CHANNEL</strong>
+            <ul class="list-group">
+              <li class="list-group-item"><img src="https://i.imgur.com/SsuyRzx.png" alt="login"></li>
+            </ul>
+          </li>
+          <li class="list-group-item">
+            5.- This weird string is gonna appear automatically, click the button to save it
+            <ul class="list-group">
+              <li class="list-group-item"><img src="https://i.imgur.com/9C78BWo.png" alt="login"></li>
+            </ul>
+          </li>
+          <li class="list-group-item">
+            6.- Your ready! you can add songs manually or by buying the songs throw the chat!
+            <ul class="list-group">
+              <li class="list-group-item"><img src="https://i.imgur.com/FXhqnby.png" alt="login"></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+</body>
+</html>

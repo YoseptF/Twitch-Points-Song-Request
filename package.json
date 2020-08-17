@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "netlify dev",
+    "build": "webpack --mode=production",
+    "build-lambda": "netlify-lambda install",
     "start": "concurrently npm:watch-*",
     "watch-webpack": "webpack --mode=development --watch",
-    "watch-hugo": "wait-on ./assets/js/bundle.js && hugo server",
-    "build": "webpack --mode=production",
-    "build-lambda": "netlify-lambda install"
+    "watch-hugo": "wait-on ./assets/js/bundle.js && hugo server"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "netlify-cli": "^2.59.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "wait-on": "^5.0.0",
@@ -40,7 +42,7 @@
     "crypto-js": "^4.0.0",
     "dotenv-webpack": "^1.7.0",
     "firebase": "^7.14.2",
-    "netlify-lambda": "^1.6.3",
+    "netlify-lambda": "^2.0.1",
     "regenerator-runtime": "^0.13.5",
     "tmi.js": "^1.5.0"
   }

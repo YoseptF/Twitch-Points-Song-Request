@@ -111,6 +111,13 @@ const setDOMAddSongButton = () => {
   });
 };
 
+const logOutButton = () => {
+  $('.logoutBtn').on('click', () => {
+    localStorage.clear();
+    window.location.href = window.location.origin;
+  });
+};
+
 export {
   setDOMInterface,
   hideDOMSongEvent,
@@ -119,4 +126,5 @@ export {
   setDOMCurrentSong,
   setDOMSongsTable,
   setDOMAddSongButton,
+  logOutButton,
 };
